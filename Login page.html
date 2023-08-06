@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login & Signup Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f1f1;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      margin-top: 100px;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .btn {
+      padding: 10px;
+      font-size: 16px;
+      color: #fff;
+      background-color: #4CAF50;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .btn:hover {
+      background-color: #45a049;
+    }
+
+    .signup-link {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .signup-link a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .hide {
+      display: none;
+    }
+
+    @media screen and (max-width: 480px) {
+      .container {
+        width: 90%;
+      }
+    }
+  </style>
+  <script>
+    function showSignup() {
+      var loginForm = document.getElementById("login-form");
+      var signupForm = document.getElementById("signup-form");
+
+      loginForm.classList.add("hide");
+      signupForm.classList.remove("hide");
+    }
+
+    function showLogin() {
+      var loginForm = document.getElementById("login-form");
+      var signupForm = document.getElementById("signup-form");
+
+      signupForm.classList.add("hide");
+      loginForm.classList.remove("hide");
+    }
+
+    function saveCredentials(username, password) {
+      localStorage.setItem(username, password);
+    }
+
+    function checkCredentials(username, password) {
+      var savedPassword = localStorage.getItem(username);
+
+      return savedPassword === password;
+    }
+
+    function handleLogin(event) {
+      event.preventDefault();
+
+      var username = document.getElementById("username").value;
+      var password = document.getElementById("password").value;
+
+      if (checkCredentials(username, password)) {
+        alert("Login successful!");
+        // Perform any additional action here (e.g., redirecting to another page)
+      } else {
+        alert("Invalid username or password. Please try again.");
+      }
+    }
+
+    function handleSignup(event) {
+      event.preventDefault();
+
+      var firstName = document.getElementById("firstName").value;
+      var lastName = document.getElementById("lastName").value;
+      var username = document.getElementById("username-signup").value;
+      var mobile = document.getElementById("mobile").value;
+      var password = document.getElementById("password-signup").value;
+
+      saveCredentials(username, password);
+
+      alert("Signup successful! You can now login with your credentials.");
+      showLogin();
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <form id="login-form" onsubmit="handleLogin(event)">
+      <h2>Login</h2>
+      <div class="input-group">
+        <label for="username">Username or email</label>
+        <input type="text" id="username" placeholder="Enter your username or email" required>
+      </div>
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password" required>
+      </div>
+      <button type="submit" class="btn">Login</button>
+      <div class="signup-link">
+        Not a member? <a href="#" onclick="showSignup()">Signup now</a>
+      </div>
+    </form>
+
+    <form id="signup-form" class="hide" onsubmit="handleSignup(event)">
+      <h2>Signup</h2>
+      <div class="input-group">
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" placeholder="Enter your first name" required>
+      </div>
+      <div class="input-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" placeholder="Enter your last name" required>
+      </div>
+      <div class="input-group">
+        <label for="username-signup">Username or email</label>
+        <input type="text" id="username-signup" placeholder="Enter a username or email" required>
+      </div>
+      <div class="input-group">
+        <label for="mobile">Mobile Number</label>
+        <input type="text" id="mobile" placeholder="Enter your mobile number" required>
+      </div>
+      <div class="input-group">
+        <label for="password-signup">Password</label>
+        <input type="password" id="password-signup" placeholder="Enter a password" required>
+      </div>
+      <button type="submit" class="btn">Signup</button>
+      <div class="signup-link">
+        Already a member? <a href="#" onclick="showLogin()">Login now</a>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
